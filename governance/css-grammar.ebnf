@@ -1,0 +1,25 @@
+governance-file ::= root-block layer-block* runtime-block sampling-block profiling-block?
+
+root-block ::= ":root" "{" root-property+ "}"
+layer-block ::= ".layer-" identifier "{" layer-property+ "}"
+runtime-block ::= ".runtime-config" "{" runtime-property+ "}"
+sampling-block ::= ".sampling-config" "{" sampling-property+ "}"
+profiling-block ::= ".profiling" "{" profiling-property+ "}"
+
+root-property ::= "--" identifier ":" value ";"
+layer-property ::= "--" identifier ":" value ";"
+runtime-property ::= "--" identifier ":" value ";"
+sampling-property ::= "--" identifier ":" value ";"
+profiling-property ::= "--" identifier ":" value ";"
+
+value ::= number | string | boolean | dimension | enum-value
+
+boolean ::= "true" | "false"
+dimension ::= number ("GB" | "MB" | "KB")
+enum-value ::= "\"" identifier ("-" identifier)* "\""
+
+identifier ::= letter (letter | digit | "-")*
+number ::= digit+ ("." digit+)?
+
+letter ::= "a"|"b"|"c"|"d"|"e"|"f"|"g"|"h"|"i"|"j"|"k"|"l"|"m"|"n"|"o"|"p"|"q"|"r"|"s"|"t"|"u"|"v"|"w"|"x"|"y"|"z"
+digit ::= "0"|"1"|"2"|"3"|"4"|"5"|"6"|"7"|"8"|"9"
