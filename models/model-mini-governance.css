@@ -1,0 +1,24 @@
+/*
+ * CSS-LLM Mini Governance v1.0
+ * Browser-safe balanced profile (~85M parameters).
+ */
+
+:root {
+  --model-name: "css-llm-mini";
+  --hidden-dim: 768;
+  --num-layers: 12;
+  --num-attention-heads: 12;
+  --head-dim: 64;
+  --intermediate-dim: 3072;
+  --vocab-size: 32000;
+  --max-seq-len: 1024;
+
+  --quant-scheme: "int4";
+  --attention-mechanism: "flash-lite";
+  --norm-type: "rmsnorm";
+  --activation-type: "swiglu";
+
+  --sampling-default: "top-p";
+  --sampling-temperature: 0.8;
+  --sampling-top-p: 0.95;
+}
