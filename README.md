@@ -16,7 +16,7 @@ CSS-LLM is a formal governance-driven runtime shell for browser and server-backe
   - `kernels/swiglu_int4.wgsl`
   - `kernels/sampler_pcg32.wgsl`
   - `kernels/moe_cluster_int4.wgsl`
-  - existing kernels: `kernels/rmsnorm.wgsl`, `kernels/flash_attention.wgsl`, `kernels/moe_expert_int4.wgsl`, `kernels/matmul_int4.wgsl`, `kernels/rope.wgsl`, `kernels/softmax.wgsl`, `kernels/swiglu.wgsl`, `kernels/sampler.wgsl`
+  - existing kernels: `kernels/rmsnorm.wgsl`, `kernels/flash_attention.wgsl`, `kernels/moe_expert_int4.wgsl`, `kernels/matmul_int4.wgsl` (tiled int4 decode + per-block scales), `kernels/rope.wgsl`, `kernels/softmax.wgsl`, `kernels/swiglu.wgsl`, `kernels/sampler.wgsl`
 - CLIF-1 weight format docs/loader (`weights/quant-format.md`, `weights/weight-loader.js`)
 - Build/packing/hash/fetch/assemble stubs (`tools/convert-hf-to-int4.py`, `tools/pack-weights.js`, `tools/hash-model.js`, `tools/fetch-weights.js`, `tools/assemble-shards.js`)
 - Browser demo (`demo/index.html`, `demo/main.js`, `demo/governance.css`)
@@ -25,12 +25,12 @@ CSS-LLM is a formal governance-driven runtime shell for browser and server-backe
 
 Implemented design blocks (checked phases):
 
-- [x] Phase 1: Fused RMSNorm + residual + INT4 matmul kernel scaffold.
-- [x] Phase 2: Fused INT4 SwiGLU kernel scaffold.
-- [x] Phase 3: Deterministic PCG32 sampler primitive.
-- [x] Phase 4: Replay proof envelope generation/verification.
-- [x] Phase 5: Deterministic top-k MoE cluster kernel scaffold with 2-phase accumulation (no atomics).
-- [x] Phase 6: A phase-structured 1B pipeline entrypoint in `TensorShell`.
+1. Fused RMSNorm + residual + INT4 matmul kernel scaffold.
+2. Fused INT4 SwiGLU kernel scaffold.
+3. Deterministic PCG32 sampler primitive.
+4. Replay proof envelope generation/verification.
+5. Deterministic top-k MoE cluster kernel scaffold with split compute/reduce entrypoints, per-expert block scales, and 2-phase accumulation (no atomics).
+6. A phase-structured 1B pipeline entrypoint in `TensorShell`.
 
 ## Artifact policy: sharded Base64 for GitHub, binary assembled locally
 
