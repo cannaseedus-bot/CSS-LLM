@@ -1,0 +1,27 @@
+{
+  "format": "css-llm/metadata-v1",
+  "version": "1.0.0",
+  "name": "tokenizer.json",
+  "canonicalization": {
+    "encoding": "utf-8",
+    "sortKeys": true,
+    "whitespace": "none",
+    "floatNorm": "ieee754-f64"
+  },
+  "payload": {
+    "type": "bpe-tokenizer",
+    "vocabSize": 51200,
+    "specialTokens": {
+      "bos": 1,
+      "eos": 2,
+      "unk": 0,
+      "pad": 3
+    },
+    "normalization": {
+      "lowercase": false,
+      "stripAccents": false
+    },
+    "pretokenizer": "byte-level"
+  },
+  "payloadHash": "7edb8a2140daba90c53f25990407fa3dbde6145aa8ad20bf6d3b9f9c581fb1e0"
+}

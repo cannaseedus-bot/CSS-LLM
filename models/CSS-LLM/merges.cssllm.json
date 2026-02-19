@@ -1,0 +1,26 @@
+{
+  "format": "css-llm/metadata-v1",
+  "version": "1.0.0",
+  "name": "merges.cssllm.json",
+  "canonicalization": {
+    "encoding": "utf-8",
+    "sortKeys": true,
+    "whitespace": "none",
+    "floatNorm": "ieee754-f64"
+  },
+  "payload": {
+    "type": "bpe-merges",
+    "source": "merges.txt",
+    "lines": [
+      "#version: 0.2",
+      "c s",
+      "cs s",
+      "l l",
+      "ll m",
+      "th e",
+      "a n",
+      "an d"
+    ]
+  },
+  "payloadHash": "eb916c4affaaa038504ad260bcb4ea7886c0d3bc81f2ddaa4db2277ae3e5e95a"
+}

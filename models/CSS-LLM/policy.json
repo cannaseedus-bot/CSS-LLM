@@ -1,0 +1,18 @@
+{
+  "format": "css-llm/metadata-v1",
+  "version": "1.0.0",
+  "name": "policy.json",
+  "canonicalization": {
+    "encoding": "utf-8",
+    "sortKeys": true,
+    "whitespace": "none",
+    "floatNorm": "ieee754-f64"
+  },
+  "payload": {
+    "replayRequired": true,
+    "allowNondeterminism": false,
+    "artifactPolicy": "external-sharded-base64",
+    "forbidCommittedBinaries": true
+  },
+  "payloadHash": "2513e186de056136e5d125a9cea6865c1d9fb51b9bb1c5655cae3771518bba92"
+}

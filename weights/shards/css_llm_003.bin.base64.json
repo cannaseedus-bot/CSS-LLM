@@ -1,0 +1,9 @@
+{
+  "format": "CLIF-1-base64-shard",
+  "shardIndex": 2,
+  "shardNumber": 3,
+  "shardCount": 3,
+  "byteOffset": 62,
+  "byteLength": 29,
+  "dataBase64": "AABDU1MtTExNLVNIQVJERUQtUExBQ0VIT0xERVI="
+}

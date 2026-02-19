@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://css-llm.dev/schema/metadata.schema.json",
+  "title": "CSS-LLM Metadata Object",
+  "type": "object",
+  "required": ["format", "version", "name", "canonicalization", "payload", "payloadHash"],
+  "properties": {
+    "format": { "const": "css-llm/metadata-v1" },
+    "version": { "type": "string" },
+    "name": { "type": "string" },
+    "canonicalization": {
+      "type": "object",
+      "required": ["encoding", "sortKeys", "whitespace", "floatNorm"],
+      "properties": {
+        "encoding": { "const": "utf-8" },
+        "sortKeys": { "type": "boolean" },
+        "whitespace": { "const": "none" },
+        "floatNorm": { "const": "ieee754-f64" }
+      },
+      "additionalProperties": false
+    },
+    "payload": { "type": ["object", "array", "string"] },
+    "payloadHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "notes": { "type": "string" }
+  },
+  "additionalProperties": false
+}

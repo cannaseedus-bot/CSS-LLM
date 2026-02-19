@@ -1,0 +1,22 @@
+{
+  "format": "css-llm/metadata-v1",
+  "version": "1.0.0",
+  "name": "codex.json",
+  "canonicalization": {
+    "encoding": "utf-8",
+    "sortKeys": true,
+    "whitespace": "none",
+    "floatNorm": "ieee754-f64"
+  },
+  "payload": {
+    "type": "dispatch-codex",
+    "kernelAliases": {
+      "fused_norm_matmul": "kernels/fused_rmsnorm_matmul.wgsl",
+      "flashattention": "kernels/flashattention_int4.wgsl",
+      "swiglu": "kernels/swiglu_int4.wgsl",
+      "sampler": "kernels/sampler_pcg32.wgsl"
+    },
+    "deterministic": true
+  },
+  "payloadHash": "ada8a187f4507be0413defa763cc6579869b54e302b05ae28a9dc302a24626de"
+}

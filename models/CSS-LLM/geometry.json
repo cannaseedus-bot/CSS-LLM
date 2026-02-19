@@ -1,0 +1,24 @@
+{
+  "format": "css-llm/metadata-v1",
+  "version": "1.0.0",
+  "name": "geometry.json",
+  "canonicalization": {
+    "encoding": "utf-8",
+    "sortKeys": true,
+    "whitespace": "none",
+    "floatNorm": "ieee754-f64"
+  },
+  "payload": {
+    "pi": 3.141592653589793,
+    "unitCircle": "x^2+y^2=1",
+    "matrixLayout": "row-major",
+    "bufferPacking": {
+      "lane": "SCXM",
+      "dict": true,
+      "op": true,
+      "num": true,
+      "shape": true
+    }
+  },
+  "payloadHash": "385a83e10ea8b1b1fd6906b071b07f67d335d2fde6d590f4d9480380fcd02ab2"
+}

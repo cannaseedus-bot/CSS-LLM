@@ -1,0 +1,18 @@
+{
+  "format": "css-llm/metadata-v1",
+  "version": "1.0.0",
+  "name": "semantics.json",
+  "canonicalization": {
+    "encoding": "utf-8",
+    "sortKeys": true,
+    "whitespace": "none",
+    "floatNorm": "ieee754-f64"
+  },
+  "payload": {
+    "evaluationOrder": "preorder-left-to-right",
+    "rounding": "nearest-even",
+    "typeCoercion": "disallowed",
+    "rng": "pcg32"
+  },
+  "payloadHash": "a4aa91b32b40c6b8d0880f8c7312bff9d3283497f3dc23e5687687cb50beb712"
+}

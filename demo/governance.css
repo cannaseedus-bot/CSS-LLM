@@ -1,0 +1,13 @@
+:root {
+  --hidden-dim: 2048;
+  --num-layers: 16;
+  --num-attention-heads: 16;
+  --num-kv-heads: 8;
+  --head-dim: 128;
+  --intermediate-dim: 8192;
+  --vocab-size: 50000;
+  --max-seq-len: 4096;
+  --quant-scheme: "int4";
+  --attention-mechanism: "flash-v2";
+  --use-moe: false;
+}

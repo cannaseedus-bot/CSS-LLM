@@ -1,0 +1,49 @@
+{
+  "format": "css-llm/metadata-v1",
+  "version": "1.0.0",
+  "name": "vocab.json",
+  "canonicalization": {
+    "encoding": "utf-8",
+    "sortKeys": true,
+    "whitespace": "none",
+    "floatNorm": "ieee754-f64"
+  },
+  "payload": {
+    "type": "vocab-index",
+    "entries": [
+      [
+        "<unk>",
+        0
+      ],
+      [
+        "<bos>",
+        1
+      ],
+      [
+        "<eos>",
+        2
+      ],
+      [
+        "<pad>",
+        3
+      ],
+      [
+        "the",
+        4
+      ],
+      [
+        "and",
+        5
+      ],
+      [
+        "css",
+        6
+      ],
+      [
+        "llm",
+        7
+      ]
+    ]
+  },
+  "payloadHash": "74212f1c5d60bc2814ba2c416f0b9980317cc325caa6b2beaabb04bae79a51cf"
+}

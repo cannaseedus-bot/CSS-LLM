@@ -1,0 +1,21 @@
+{
+  "format": "css-llm/metadata-v1",
+  "version": "1.0.0",
+  "name": "meta.json",
+  "canonicalization": {
+    "encoding": "utf-8",
+    "sortKeys": true,
+    "whitespace": "none",
+    "floatNorm": "ieee754-f64"
+  },
+  "payload": {
+    "model": "css-llm-1b",
+    "family": "transformer",
+    "quant": "int4",
+    "maxSeqLen": 4096,
+    "hiddenDim": 2048,
+    "layers": 16,
+    "heads": 16
+  },
+  "payloadHash": "4222b95ec3bf8868e73634b70d8aadb7e27d7318dbd0b6b2b9256ab9a64e6e81"
+}

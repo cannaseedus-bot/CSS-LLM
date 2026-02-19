@@ -1,0 +1,23 @@
+{
+  "format": "css-llm/metadata-v1",
+  "version": "1.0.0",
+  "name": "tools.json",
+  "canonicalization": {
+    "encoding": "utf-8",
+    "sortKeys": true,
+    "whitespace": "none",
+    "floatNorm": "ieee754-f64"
+  },
+  "payload": {
+    "required": [
+      "tools/pack-weights.js",
+      "tools/fetch-weights.js",
+      "tools/assemble-shards.js",
+      "tools/hash-model.js"
+    ],
+    "optional": [
+      "tools/convert-hf-to-int4.py"
+    ]
+  },
+  "payloadHash": "973c7efdc62e7c1351734798e77b96f8a4332161593261dae24a9d32fb8396f5"
+}

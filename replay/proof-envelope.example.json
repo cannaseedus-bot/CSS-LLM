@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "governanceHash": "governance_sha256",
+  "weightHash": "weights_sha256",
+  "kernelHash": "kernel_bundle_sha256",
+  "inputHash": "input_tokens_sha256",
+  "rngSeed": 123456,
+  "outputHash": "output_tokens_sha256",
+  "proofHash": "sha256(governance||weights||kernel||input||seed||output)"
+}
