@@ -5,6 +5,6 @@
   "private": true,
   "scripts": {
     "validate:demo": "node governance/validate-config.js demo/governance.css",
-    "check": "node --check governance/validate-config.js && node --check governance/invariants.js && node --check shell/replay-engine.js && node --check shell/deterministic-replay.js && node --check replay/verify.js && node --check shell/tensor-shell.js && node --check weights/weight-loader.js && node --check tools/hash-model.js && node --check tools/pack-weights.js && node --check tools/fetch-weights.js && node --check tools/assemble-shards.js"
+    "check": "node --check governance/validate-config.js && node --check governance/invariants.js && node --check shell/replay-engine.js && node --check shell/deterministic-replay.js && node --check replay/verify.js && node --check shell/tensor-shell.js && node --check weights/weight-loader.js && node --check tools/hash-model.js && node --check tools/pack-weights.js && node --check tools/fetch-weights.js && node --check tools/assemble-shards.js && node --check src/mini-tensor-shell.js && node --check src/tensor-shell.js && node --check src/moe/router.js && node --check src/moe/expert_dispatch.js && node --check src/tokenizer/tokenizer.js && node --check src/utils/deterministic_rng.js && node --check src/utils/hash.js && node --check src/utils/scx_loader.js && node --check scx/unpack_scx.js && node --check src/utils/deterministic_sampler.js && node --check demo/service-worker.js"
   }
 }

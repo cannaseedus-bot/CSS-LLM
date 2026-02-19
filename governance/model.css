@@ -1,0 +1,22 @@
+:root {
+  --model-name: "css-llm-mini-64m";
+  --hidden-dim: 768;
+  --num-layers: 8;
+  --num-heads: 12;
+  --head-dim: 64;
+  --ffn-dim: 3072;
+  --vocab-size: 32000;
+  --context-length: 1024;
+
+  --precision: "int4";
+  --attention-kernel: "attention_tiled";
+  --norm-type: "rmsnorm";
+  --activation: "swiglu";
+
+  --sampling: "top-p";
+  --temperature: 0.8;
+  --top-p: 0.95;
+
+  --deterministic-reduction: true;
+  --allow-gpu-atomics: false;
+}
