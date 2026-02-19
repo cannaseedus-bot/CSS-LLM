@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "math://schema/core/v1",
+  "title": "Canonical Math Object",
+  "type": "object",
+  "required": ["type", "id", "payload"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "scalar",
+        "vector",
+        "matrix",
+        "tensor",
+        "equation",
+        "polynomial",
+        "derivative",
+        "integral",
+        "expression"
+      ]
+    },
+    "id": { "type": "string" },
+    "meta": { "type": "object", "additionalProperties": true },
+    "payload": {
+      "oneOf": [
+        { "$ref": "#/$defs/scalar" },
+        { "$ref": "#/$defs/vector" },
+        { "$ref": "#/$defs/matrix" },
+        { "$ref": "#/$defs/tensor" },
+        { "$ref": "#/$defs/equation" },
+        { "$ref": "#/$defs/expression" }
+      ]
+    }
+  },
+  "$defs": {
+    "scalar": {
+      "type": "object",
+      "required": ["value"],
+      "properties": { "value": { "type": "number" } }
+    },
+    "vector": {
+      "type": "object",
+      "required": ["values"],
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": { "type": "number" }
+        }
+      }
+    },
+    "matrix": {
+      "type": "object",
+      "required": ["rows", "cols", "values"],
+      "properties": {
+        "rows": { "type": "integer" },
+        "cols": { "type": "integer" },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": { "type": "number" }
+          }
+        }
+      }
+    },
+    "tensor": {
+      "type": "object",
+      "required": ["shape", "values"],
+      "properties": {
+        "shape": {
+          "type": "array",
+          "items": { "type": "integer" }
+        },
+        "values": {
+          "type": "array",
+          "items": { "type": "number" }
+        }
+      }
+    },
+    "equation": {
+      "type": "object",
+      "required": ["lhs", "rhs"],
+      "properties": {
+        "lhs": { "$ref": "#/$defs/expression" },
+        "rhs": { "$ref": "#/$defs/expression" }
+      }
+    },
+    "expression": {
+      "type": "object",
+      "required": ["op"],
+      "properties": {
+        "op": {
+          "type": "string",
+          "enum": [
+            "add",
+            "sub",
+            "mul",
+            "div",
+            "pow",
+            "sin",
+            "cos",
+            "tan",
+            "exp",
+            "log",
+            "neg",
+            "const",
+            "var"
+          ]
+        },
+        "args": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/expression" }
+        },
+        "value": { "type": "number" },
+        "name": { "type": "string" }
+      }
+    }
+  }
+}

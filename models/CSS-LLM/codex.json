@@ -1,0 +1,39 @@
+{
+  "format": "css-llm-codex/v1",
+  "model": {
+    "id": "CSS-LLM",
+    "family": "qwen2",
+    "adapter": {
+      "file": "adapter_model.safetensors",
+      "type": "lora",
+      "role": "domain-specialization"
+    }
+  },
+  "artifacts": {
+    "config": "config.json",
+    "generation": "generation_config.json",
+    "tokenizer": "tokenizer.json",
+    "tokenizerConfig": "tokenizer_config.json",
+    "vocab": "vocab.json",
+    "merges": "merges.txt",
+    "meta": "meta.json",
+    "policy": "policy.json",
+    "tools": "tools.json",
+    "semantics": "semantics.json",
+    "geometry": "geometry.json"
+  },
+  "determinism": {
+    "canonicalization": {
+      "encoding": "utf-8",
+      "sortedKeys": true,
+      "whitespace": "none",
+      "floatFormat": "ieee754-f64",
+      "rounding": "nearest-even"
+    },
+    "replay": {
+      "seedRequired": true,
+      "leftToRightEvaluation": true,
+      "proofEnvelope": "../../replay/proof-envelope.example.json"
+    }
+  }
+}
