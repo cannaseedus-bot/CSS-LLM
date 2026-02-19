@@ -1,24 +1,25 @@
-# CSS-LLM: Formal Governance Grammar + Minimal 1B Shell
+# CSS-LLM: Formal Governance Grammar + Runtime Formats
 
 ## Layers
 
-1. **Governance layer (CSS):** a strict grammar for model/runtime constraints.
+1. **Governance layer (CSS):** strict contracts for model/runtime constraints.
 2. **Bridge layer (JS):** CSS variable parsing into typed runtime config.
-3. **Compute layer (WebGPU):** buffers, pipelines, dispatch loops, cache lifecycle.
+3. **Compute layer:** browser WebGPU shell or enterprise server execution.
 
 ## Included artifacts
 
-- `specs/governance-grammar-v1.css`: normative schema grammar.
-- `models/model-1b-governance.css`: minimal viable 1B profile for browser execution.
-- `src/tensor-shell-minimal.js`: browser shell with parser + WebGPU pipeline setup + paged cache.
-- `examples/index.html`: end-to-end loading and invocation example.
+- `specs/governance-grammar-v1.css`: baseline schema grammar.
+- `models/model-1b-governance.css`: browser-first 1B profile.
+- `src/tensor-shell-minimal.js`: browser shell (WebGPU).
+- `examples/index.html`: browser demo loading the 1B profile.
 
-## Baseline 1B profile targets
+## Enterprise server-required format
 
-- Parameters: ~1B
-- Quantized weights: int4
-- Runtime target: WebGPU first, browser-safe batch/sequence bounds
-- Determinism primitive: config hash in governance contract
+- `specs/enterprise-model-format-v1.css`: enterprise contract schema that explicitly requires a control plane/server.
+- `models/model-enterprise-server-governance.css`: concrete enterprise profile with mTLS control plane, registry metadata, compliance routing, and SLO knobs.
+- `src/enterprise-model-client.js`: runtime client enforcing `--requires-server: true` and routing generation requests through a server transport.
+
+This enterprise format is designed for managed deployment and intentionally disallows standalone browser-only inference.
 
 ## Planned next steps
 
