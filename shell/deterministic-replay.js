@@ -7,19 +7,23 @@ function sha256(input) {
 export function createProofEnvelope({
   version = "1.0",
   governanceHash,
+  modelHash,
   weightHash,
   kernelHash,
   inputHash,
   rngSeed,
   outputHash,
 }) {
-  const proofConcat = `${governanceHash}|${weightHash}|${kernelHash}|${inputHash}|${rngSeed}|${outputHash}`;
+  const canonicalModelHash = modelHash ?? weightHash;
+  const proofConcat = `${governanceHash}|${canonicalModelHash}|${kernelHash}|${inputHash}|${rngSeed}|${outputHash}`;
   const proofHash = sha256(proofConcat);
 
   return {
     version,
+    modelHash: canonicalModelHash,
     governanceHash,
-    weightHash,
+    // legacy alias retained for compatibility with older callers
+    weightHash: canonicalModelHash,
     kernelHash,
     inputHash,
     rngSeed,
