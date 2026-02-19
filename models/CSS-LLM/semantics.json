@@ -1,0 +1,30 @@
+{
+  "format": "css-llm-semantics/v1",
+  "expressionOps": {
+    "add": { "arity": 2, "symbol": "+" },
+    "sub": { "arity": 2, "symbol": "-" },
+    "mul": { "arity": 2, "symbol": "*" },
+    "div": { "arity": 2, "symbol": "/" },
+    "pow": { "arity": 2, "symbol": "^" },
+    "sin": { "arity": 1 },
+    "cos": { "arity": 1 },
+    "tan": { "arity": 1 },
+    "exp": { "arity": 1 },
+    "log": { "arity": 1 },
+    "neg": { "arity": 1 },
+    "const": { "arity": 0 },
+    "var": { "arity": 0 }
+  },
+  "algebra": {
+    "linear": "ax + b = 0 => x = -b/a",
+    "quadratic": "ax^2 + bx + c = 0 => (-b ± sqrt(b^2-4ac))/2a"
+  },
+  "calculus": {
+    "derivativePowerRule": "d/dx x^n = n x^(n-1)",
+    "integralPowerRule": "∫x^n dx = x^(n+1)/(n+1) + C"
+  },
+  "matrix": {
+    "det2x2": "ad - bc",
+    "inverse2x2": "(1/(ad-bc)) * [[d,-b],[-c,a]]"
+  }
+}

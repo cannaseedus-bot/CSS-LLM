@@ -1,0 +1,20 @@
+{
+  "format": "css-llm-geometry/v1",
+  "constants": {
+    "pi": 3.141592653589793
+  },
+  "twoD": {
+    "triangleArea": "0.5 * b * h",
+    "rectangleArea": "l * w",
+    "circleArea": "pi * r^2",
+    "arcLength": "r * theta",
+    "pythagorean": "a^2 + b^2 = c^2"
+  },
+  "threeD": {
+    "sphereVolume": "(4/3) * pi * r^3",
+    "sphereSurface": "4 * pi * r^2",
+    "cubeVolume": "a^3",
+    "cylinderVolume": "pi * r^2 * h"
+  },
+  "unitCircle": "x^2 + y^2 = 1"
+}

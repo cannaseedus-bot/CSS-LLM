@@ -1,0 +1,26 @@
+{
+  "format": "css-llm-tools/v1",
+  "tools": [
+    {
+      "name": "matmul",
+      "signature": "matmul(A: matrix, B: matrix) -> matrix",
+      "deterministic": true,
+      "kernel": "../../kernels/matmul_int4.wgsl"
+    },
+    {
+      "name": "derive",
+      "signature": "derive(expression, variable) -> expression",
+      "deterministic": true
+    },
+    {
+      "name": "integrate",
+      "signature": "integrate(expression, variable) -> expression",
+      "deterministic": true
+    },
+    {
+      "name": "geometry_eval",
+      "signature": "geometry_eval(formula, bindings) -> scalar",
+      "deterministic": true
+    }
+  ]
+}

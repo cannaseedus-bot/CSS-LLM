@@ -1,0 +1,25 @@
+{
+  "format": "css-llm-meta/v1",
+  "name": "CSS-LLM",
+  "description": "Deterministic governance-first model package with replay metadata.",
+  "createdBy": "codex",
+  "base": {
+    "architecture": "Qwen2ForCausalLM",
+    "quantization": "gptq-int4"
+  },
+  "capabilities": [
+    "instruction-following",
+    "deterministic-replay",
+    "json-math-ast",
+    "geometry-reasoning"
+  ],
+  "governance": {
+    "schema": "../../governance/css-llm.schema.json",
+    "grammar": "../../governance/css-grammar.ebnf",
+    "invariants": "../../governance/invariants.js"
+  },
+  "replay": {
+    "schema": "../../replay/replay-schema.json",
+    "verifier": "../../replay/verify.js"
+  }
+}

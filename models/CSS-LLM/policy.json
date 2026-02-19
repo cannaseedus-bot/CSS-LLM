@@ -1,0 +1,26 @@
+{
+  "format": "css-llm-policy/v1",
+  "deterministicEvaluationLaw": {
+    "astOrder": "preorder",
+    "argOrder": "left-to-right",
+    "floatOps": "ieee754-f64",
+    "rounding": "nearest-even",
+    "implicitTypeCoercion": false
+  },
+  "canonicalization": {
+    "jsonEncoding": "utf-8",
+    "sortObjectKeys": true,
+    "allowTrailingWhitespace": false,
+    "allowNaN": false,
+    "allowInfinity": false
+  },
+  "integrity": {
+    "hash": "sha256",
+    "merkleSurface": [
+      "DICT",
+      "OP",
+      "NUM",
+      "SHP"
+    ]
+  }
+}
