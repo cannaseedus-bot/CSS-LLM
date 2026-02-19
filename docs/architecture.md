@@ -1,30 +1,49 @@
-# CSS-LLM: Formal Governance Grammar + Runtime Formats
+# CSS-LLM Shell Architecture
 
-## Layers
+## Pipeline
 
-1. **Governance layer (CSS):** strict contracts for model/runtime constraints.
-2. **Bridge layer (JS):** CSS variable parsing into typed runtime config.
-3. **Compute layer:** browser WebGPU shell or enterprise server execution.
+1. Governance CSS is constrained by CLGS-1 grammar.
+2. `validate-config.js` enforces allowed property registry.
+3. `invariants.js` enforces hard model constraints.
+4. Shell initializes GPU resources and kernels.
+5. Replay engine emits deterministic replay records.
+6. Replay verifier checks output hash against the record.
 
-## Included artifacts
+## Deterministic replay input set
 
-- `specs/governance-grammar-v1.css`: baseline schema grammar.
-- `models/model-1b-governance.css`: browser-first 1B profile.
-- `src/tensor-shell-minimal.js`: browser shell (WebGPU).
-- `examples/index.html`: browser demo loading the 1B profile.
+- Governance CSS hash
+- Model weights hash
+- Kernel bundle hash
+- Input token hash
+- Sampling config + RNG seed
+- Output token hash
 
-## Enterprise server-required format
+## Deterministic reduction law
 
-- `specs/enterprise-model-format-v1.css`: enterprise contract schema that explicitly requires a control plane/server.
-- `models/model-enterprise-server-governance.css`: concrete enterprise profile with mTLS control plane, registry metadata, compliance routing, and SLO knobs.
-- `src/enterprise-model-client.js`: runtime client enforcing `--requires-server: true` and routing generation requests through a server transport.
+To keep replay behavior stable, kernels follow these rules:
 
-This enterprise format is designed for managed deployment and intentionally disallows standalone browser-only inference.
+1. No atomics for floating-point reductions.
+2. No unordered subgroup reduction primitives.
+3. Fixed tree reduction ordering (`stride = N/2 ... 1`).
+4. Fixed loop traversal order for sequence and feature dimensions.
+5. No race-dependent accumulation paths.
 
-## Planned next steps
+The INT4 RMSNorm kernel applies this law directly with a workgroup-local
+binary tree reduction over `partial[]`.
 
-1. Weight converter (HF -> int4 packed format)
-2. Shader auto-tuner for per-device workgroup tuning
-3. Replay verifier for trace/input/output hash validation
-4. WASM fallback backend
-5. CSS model-zoo profiles
+## Artifact policy
+
+- No large binary model files are committed to git/GitHub.
+- GitHub-safe Base64 JSON artifacts are acceptable for small fixtures/examples.
+- Real model weights are hosted externally (e.g., Google Drive, Hugging Face, object storage).
+- `tools/fetch-weights.js` is the local downloader for external HTTPS weight files.
+
+## Repository layout
+
+- `governance/`: grammar, schema, law enforcement
+- `shell/`: runtime modules
+- `kernels/`: WGSL kernels
+- `weights/`: CLIF-1 docs + loaders
+- `tools/`: conversion/packing/hash/fetch utilities
+- `replay/`: replay schema + verifier
+- `demo/`: browser entrypoint

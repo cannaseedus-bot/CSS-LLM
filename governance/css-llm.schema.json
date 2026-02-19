@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://css-llm.dev/schema/css-llm.schema.json",
+  "title": "CSS-LLM Governance Schema",
+  "type": "object",
+  "required": [
+    "hiddenDim",
+    "numLayers",
+    "numAttentionHeads",
+    "intermediateDim",
+    "vocabSize",
+    "maxSeqLen"
+  ],
+  "properties": {
+    "hiddenDim": { "type": "integer", "minimum": 128, "maximum": 16384 },
+    "numLayers": { "type": "integer", "minimum": 1, "maximum": 128 },
+    "numAttentionHeads": { "type": "integer", "minimum": 1 },
+    "numKVHeads": { "type": "integer", "minimum": 1 },
+    "headDim": { "type": "integer", "minimum": 1 },
+    "intermediateDim": { "type": "integer", "minimum": 256 },
+    "vocabSize": { "type": "integer", "minimum": 1000 },
+    "maxSeqLen": { "type": "integer", "minimum": 128 },
+    "quantScheme": {
+      "type": "string",
+      "enum": ["none", "int8", "int4", "gptq", "awq"]
+    },
+    "attentionMechanism": {
+      "type": "string",
+      "enum": ["standard", "flash-v1", "flash-v2"]
+    },
+    "useMoE": { "type": "boolean" }
+  },
+  "additionalProperties": false
+}
