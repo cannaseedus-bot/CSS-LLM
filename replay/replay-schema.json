@@ -4,15 +4,18 @@
   "title": "Inference Replay Record",
   "type": "object",
   "required": [
+    "version",
     "modelHash",
     "governanceHash",
     "kernelHash",
     "inputHash",
     "rngSeed",
     "samplingConfig",
-    "outputHash"
+    "outputHash",
+    "proofHash"
   ],
   "properties": {
+    "version": { "type": "string" },
     "modelHash": { "type": "string" },
     "governanceHash": { "type": "string" },
     "kernelHash": { "type": "string" },
@@ -28,7 +31,21 @@
       "required": ["temperature", "topP", "topK"],
       "additionalProperties": false
     },
-    "outputHash": { "type": "string" }
+    "outputHash": { "type": "string" },
+    "proofHash": { "type": "string" },
+    "clusterNodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "nodeId": { "type": "string" },
+          "expert": { "type": "integer" },
+          "outputHash": { "type": "string" }
+        },
+        "required": ["nodeId", "expert", "outputHash"],
+        "additionalProperties": false
+      }
+    }
   },
   "additionalProperties": false
 }
