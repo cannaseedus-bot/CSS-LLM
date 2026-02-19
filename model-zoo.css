@@ -39,3 +39,15 @@
   --vocab-size: 32064;
   --weight-base-url: "https://models.css-llm.dev/phi3-mini/";
 }
+
+.model-css-llm-mini {
+  --model-name: "css-llm-mini";
+  --hidden-dim: 768;
+  --intermediate-dim: 3072;
+  --num-layers: 12;
+  --num-attention-heads: 12;
+  --head-dim: 64;
+  --vocab-size: 32000;
+  --max-seq-len: 1024;
+  --weight-precision: "int4";
+}

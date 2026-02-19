@@ -18,6 +18,10 @@ export function validateInvariants(config) {
     errors.push("numKVHeads must be <= numAttentionHeads");
   }
 
+  if (config.allowGpuAtomics) {
+    errors.push("allowGpuAtomics must be false for deterministic replay");
+  }
+
   return {
     ok: errors.length === 0,
     errors,

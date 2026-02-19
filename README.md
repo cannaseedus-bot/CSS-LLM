@@ -18,8 +18,19 @@ CSS-LLM is a formal governance-driven runtime shell for browser and server-backe
   - `kernels/moe_cluster_int4.wgsl`
   - existing kernels: `kernels/rmsnorm.wgsl`, `kernels/flash_attention.wgsl`, `kernels/moe_expert_int4.wgsl`, `kernels/matmul_int4.wgsl` (tiled int4 decode + per-block scales), `kernels/rope.wgsl`, `kernels/softmax.wgsl`, `kernels/swiglu.wgsl`, `kernels/sampler.wgsl`
 - CLIF-1 weight format docs/loader (`weights/quant-format.md`, `weights/weight-loader.js`)
+- Mini profile artifacts for the 64M–120M browser tier:
+  - `models/model-mini-governance.css`
+  - `kernels/matmul_int4_mini.wgsl`
+  - `kernels/flash_attention_lite.wgsl`
+  - `src/mini-tensor-shell.js`
+  - `weights/scx-mini-format.md`
 - Build/packing/hash/fetch/assemble stubs (`tools/convert-hf-to-int4.py`, `tools/pack-weights.js`, `tools/hash-model.js`, `tools/fetch-weights.js`, `tools/assemble-shards.js`)
 - Browser demo (`demo/index.html`, `demo/main.js`, `demo/governance.css`)
+- Mini attention/runtime extras for practical deployment:
+  - `src/kernels/attention_flash_lite.wgsl`
+  - `src/utils/deterministic_sampler.js`
+  - `demo/manifest.json`, `demo/service-worker.js`
+  - `training/micro-config.yaml`, `training/micro_train.py`
 
 ## Deterministic 1B browser core (consolidated)
 
@@ -72,9 +83,35 @@ python3 -m http.server 8080
 Open `http://localhost:8080/demo/index.html`.
 
 
+
+## Mini 64M shippable workstream
+
+- [x] Define mini governance + strict schema surfaces (`governance/model.css`, `governance/schema.json`).
+- [x] Add runtime layout scaffolding for kernels, MoE routing, tokenizer, and deterministic utilities (`src/`).
+- [x] Add SCX mini format docs + deterministic pack/unpack utilities (`scx/`).
+- [x] Add a concrete 64M training/quantization recipe (`training/config.yaml`, `training/train.py`, `training/quantize.py`, `training/export_int4.py`).
+- [x] Add a micro-training loop/profile for small-dataset iteration (`training/micro-config.yaml`, `training/micro_train.py`).
+- [x] Add deterministic tokenizer + top-p sampler engine utilities (`src/tokenizer/tokenizer.js`, `src/utils/deterministic_sampler.js`, `src/utils/deterministic_rng.js`).
+- [x] Add deployable PWA artifacts for offline demo boot (`demo/manifest.json`, `demo/service-worker.js`, `demo/icon-192.svg`).
+- [x] Commit a deterministic mock `SCXM` artifact for integration wiring (`models/mini-64m-int4.scx.base64.json`).
+
+## Mini build snippets
+
+```bash
+# validate JS surfaces and base checks
+npm run check
+
+# pack a deterministic SCX payload from JSON tensors
+python3 scx/pack_scx.py /tmp/tensors.json /tmp/mini-64m-int4.scx
+
+# inspect SCX header quickly
+node -e "import('./scx/unpack_scx.js').then(m => console.log(m.unpackScx('models/mini-64m-int4.scx.base64.json')))"
+```
+
 ## To-do list
 
 - [ ] Wire full end-to-end 1B inference through all kernel stages.
+- [x] Add mini 85M browser profile governance + deterministic shell scaffold.
 - [ ] Add deterministic regression fixtures for replay envelope verification.
 - [ ] Expand shard tooling with integrity checks and resumable downloads.
 - [ ] Add browser benchmark script for repeatable latency/memory reporting.

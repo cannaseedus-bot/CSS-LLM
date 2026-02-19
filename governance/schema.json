@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CSS-LLM Mini Governance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "model-name",
+    "hidden-dim",
+    "num-layers",
+    "num-heads",
+    "head-dim",
+    "ffn-dim",
+    "vocab-size",
+    "context-length",
+    "precision",
+    "attention-kernel",
+    "norm-type",
+    "activation"
+  ],
+  "properties": {
+    "model-name": { "type": "string", "minLength": 1 },
+    "hidden-dim": { "type": "integer", "const": 768 },
+    "num-layers": { "type": "integer", "enum": [8, 12] },
+    "num-heads": { "type": "integer", "const": 12 },
+    "head-dim": { "type": "integer", "const": 64 },
+    "ffn-dim": { "type": "integer", "const": 3072 },
+    "vocab-size": { "type": "integer", "const": 32000 },
+    "context-length": { "type": "integer", "const": 1024 },
+    "precision": { "type": "string", "const": "int4" },
+    "attention-kernel": { "type": "string", "enum": ["attention_tiled", "flash-lite"] },
+    "norm-type": { "type": "string", "const": "rmsnorm" },
+    "activation": { "type": "string", "const": "swiglu" },
+    "sampling": { "type": "string", "enum": ["top-p", "top-k"] },
+    "temperature": { "type": "number", "minimum": 0.1, "maximum": 2.0 },
+    "top-p": { "type": "number", "minimum": 0.5, "maximum": 1.0 },
+    "deterministic-reduction": { "type": "boolean" },
+    "allow-gpu-atomics": { "type": "boolean", "const": false }
+  }
+}
