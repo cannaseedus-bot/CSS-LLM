@@ -9,7 +9,7 @@ function download(url, outPath) {
       .get(url, (res) => {
         if (res.statusCode && res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
           file.close();
-          fs.unlinkSync(outPath);
+          if (fs.existsSync(outPath)) fs.unlinkSync(outPath);
           download(res.headers.location, outPath).then(resolve).catch(reject);
           return;
         }
@@ -33,22 +33,37 @@ function download(url, outPath) {
 }
 
 async function main() {
-  const url = process.argv[2];
-  const out = process.argv[3] || "weights/model.bin";
+  const indexUrl = process.argv[2];
+  const outDir = process.argv[3] || "weights/shards";
 
-  if (!url) {
-    console.error("Usage: node tools/fetch-weights.js <https_url> [output_path]");
+  if (!indexUrl) {
+    console.error("Usage: node tools/fetch-weights.js <index_json_url> [output_dir]");
     process.exit(1);
   }
 
-  if (!url.startsWith("https://")) {
+  if (!indexUrl.startsWith("https://")) {
     console.error("Only https:// URLs are allowed");
     process.exit(2);
   }
 
-  fs.mkdirSync(path.dirname(out), { recursive: true });
-  await download(url, out);
-  console.log(`Downloaded weights to: ${out}`);
+  fs.mkdirSync(outDir, { recursive: true });
+  const localIndexPath = path.join(outDir, path.basename(new URL(indexUrl).pathname) || "css_llm_index.json");
+
+  await download(indexUrl, localIndexPath);
+  const index = JSON.parse(fs.readFileSync(localIndexPath, "utf8"));
+
+  if (index.format !== "CLIF-1-base64-sharded") {
+    throw new Error("Index is not CLIF-1-base64-sharded");
+  }
+
+  const indexBase = indexUrl.slice(0, indexUrl.lastIndexOf("/") + 1);
+  for (const shardFile of index.shards) {
+    const shardUrl = `${indexBase}${shardFile}`;
+    const shardOut = path.join(outDir, shardFile);
+    await download(shardUrl, shardOut);
+  }
+
+  console.log(`Downloaded shard index + ${index.shards.length} shard(s) to ${outDir}`);
 }
 
 main().catch((err) => {

@@ -1,0 +1,11 @@
+{
+  "format": "CLIF-1-base64-sharded",
+  "baseName": "css_llm",
+  "shardCount": 3,
+  "totalBytes": 91,
+  "shards": [
+    "css_llm_001.bin.base64.json",
+    "css_llm_002.bin.base64.json",
+    "css_llm_003.bin.base64.json"
+  ]
+}
