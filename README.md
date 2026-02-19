@@ -23,7 +23,7 @@ CSS-LLM is a formal governance-driven runtime shell for browser and server-backe
 
 ## Deterministic 1B browser core (consolidated)
 
-Implemented design blocks:
+Implemented design blocks (checked phases):
 
 1. Fused RMSNorm + residual + INT4 matmul kernel scaffold.
 2. Fused INT4 SwiGLU kernel scaffold.
@@ -70,3 +70,11 @@ python3 -m http.server 8080
 ```
 
 Open `http://localhost:8080/demo/index.html`.
+
+
+## To-do list
+
+- [ ] Wire full end-to-end 1B inference through all kernel stages.
+- [ ] Add deterministic regression fixtures for replay envelope verification.
+- [ ] Expand shard tooling with integrity checks and resumable downloads.
+- [ ] Add browser benchmark script for repeatable latency/memory reporting.
