@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS-LLM 1B Browser Demo</title>
+  </head>
+  <body>
+    <h1>CSS-LLM Minimal Tensor Shell Demo</h1>
+    <pre id="output">Running…</pre>
+
+    <script type="module">
+      import { MinimalTensorShell } from "../src/tensor-shell-minimal.js";
+
+      async function loadModel() {
+        const cssResponse = await fetch("../models/model-1b-governance.css");
+        const css = await cssResponse.text();
+
+        const shell = new MinimalTensorShell(css);
+        await shell.initialize();
+
+        const tokens = [[1, 2, 3, 4]];
+        const output = await shell.forward(tokens, {
+          temperature: 0.7,
+          top_k: 40,
+        });
+
+        document.querySelector("#output").textContent = JSON.stringify(output, null, 2);
+      }
+
+      loadModel().catch((error) => {
+        document.querySelector("#output").textContent = String(error);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+/*!
+ * CSS-LLM Enterprise Model Format v1.0
+ * Server-required deployment contract.
+ *
+ * This format is intentionally non-runnable in pure browser-only mode.
+ * A compliant runtime MUST connect to a remote orchestrator/service plane.
+ */
+
+:root {
+  /* ===== ENTERPRISE ENFORCEMENT ===== */
+  --enterprise-mode: true;
+  --requires-server: true;
+  --standalone-browser-allowed: false;
+  --min-control-plane-version: <semver>;
+
+  /* ===== CONTROL PLANE ===== */
+  --control-plane-protocol: <enum: https|grpc|mtls-grpc>;
+  --control-plane-endpoint: <url>;
+  --control-plane-timeout-ms: <integer:100-60000>;
+  --control-plane-auth: <enum: oauth2|mTLS|api-key|oidc>;
+  --control-plane-tenant-id: <string>;
+
+  /* ===== MODEL REGISTRY ===== */
+  --registry-provider: <enum: s3|gcs|azure-blob|huggingface-private|custom>;
+  --registry-uri: <url>;
+  --registry-model-id: <string>;
+  --registry-model-revision: <string>;
+  --registry-signature-required: <boolean>;
+
+  /* ===== SHARDING AND ROUTING ===== */
+  --inference-topology: <enum: single-node|tensor-parallel|pipeline-parallel|ep-moe>;
+  --tensor-parallel-size: <power-of-two:1-64>;
+  --pipeline-parallel-size: <power-of-two:1-32>;
+  --expert-parallel-size: <power-of-two:1-64>;
+  --router-policy: <enum: latency|cost|balanced|compliance-zone>;
+  --router-region: <string>;
+
+  /* ===== SECURITY + COMPLIANCE ===== */
+  --encryption-in-transit: <enum: tls1.2|tls1.3|mtls>;
+  --encryption-at-rest: <enum: aes256|kms-managed|hsm-backed>;
+  --audit-logging: <boolean>;
+  --pii-redaction: <boolean>;
+  --data-residency: <string>;
+
+  /* ===== SERVER KV CACHE ===== */
+  --kv-cache-backend: <enum: redis|dragonfly|memcached|custom>;
+  --kv-cache-replication: <enum: none|async|sync>;
+  --kv-cache-ttl-seconds: <integer:1-86400>;
+  --kv-cache-prefix-sharing: <boolean>;
+
+  /* ===== SCHEDULING + SLO ===== */
+  --slo-p50-ms: <integer:1-10000>;
+  --slo-p95-ms: <integer:1-30000>;
+  --slo-p99-ms: <integer:1-60000>;
+  --max-concurrent-requests: <integer:1-100000>;
+  --admission-policy: <enum: queue|shed|priority-queue>;
+
+  /* ===== OBSERVABILITY ===== */
+  --trace-exporter: <enum: otlp|jaeger|zipkin|none>;
+  --metrics-exporter: <enum: prometheus|otlp|none>;
+  --log-format: <enum: json|logfmt>;
+  --replay-trace-sampling: <float:0-1>;
+
+  /* ===== CONTRACT ===== */
+  --enterprise-contract-hash: <hex-string>;
+}

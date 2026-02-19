@@ -1,0 +1,10 @@
+{
+  "name": "css-llm-shell",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "validate:demo": "node governance/validate-config.js demo/governance.css",
+    "check": "node --check governance/validate-config.js && node --check governance/invariants.js && node --check shell/replay-engine.js && node --check shell/deterministic-replay.js && node --check replay/verify.js && node --check shell/tensor-shell.js && node --check weights/weight-loader.js && node --check tools/hash-model.js && node --check tools/pack-weights.js && node --check tools/fetch-weights.js && node --check tools/assemble-shards.js"
+  }
+}
