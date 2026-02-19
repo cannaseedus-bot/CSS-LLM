@@ -1,0 +1,162 @@
+/*!
+ * CSS-LLM Governance Grammar v1.0
+ * Strict schema contract for model configuration.
+ *
+ * NOTE:
+ * - This file is a normative grammar/specification artifact.
+ * - Values shown as angle-bracket forms are schema constraints, not concrete values.
+ */
+
+:root {
+  /* ===== 1. MODEL IDENTITY ===== */
+  --model-name: <string>;
+  --model-version: <semver>;
+  --model-family: <string>;
+  --model-architecture: <enum: transformer|mamba|rwkv>;
+  --model-hash: <hex-string>;
+
+  /* ===== 2. DIMENSIONAL CONSTRAINTS ===== */
+  --hidden-dim: <multiple-of-64>;
+  --intermediate-dim: <multiple-of-64>;
+  --num-layers: <integer:1-128>;
+  --num-attention-heads: <multiple-of-8>;
+  --num-kv-heads: <multiple-of-8>;
+  --head-dim: <multiple-of-16>;
+  --vocab-size: <integer:1000-320000>;
+  --max-seq-len: <power-of-two:512-32768>;
+
+  /* ===== 3. PRECISION GOVERNANCE ===== */
+  --weight-precision: <enum: int4|int8|fp16|bf16|fp32>;
+  --activation-precision: <enum: fp16|bf16|fp32>;
+  --accumulation-precision: <enum: fp32>;
+  --quant-scheme: <enum: gptq|awq|squeezellm|none>;
+  --quant-block-size: <integer:32|64|128|256>;
+  --quant-group-size: <integer:64|128>;
+
+  /* ===== 4. ATTENTION GOVERNANCE ===== */
+  --attention-mechanism: <enum: flash-v2|flash-v3|paged|xformers|sdpa>;
+  --attention-impl: <enum: triton|cuda|wgsl|metal>;
+  --attention-bias: <boolean>;
+  --attention-dropout: <float:0-0.5>;
+  --attention-scale: <enum: inv-sqrt-dim|learned>;
+  --sliding-window-size: <integer:0-8192>;
+  --alibi-slopes: <boolean>;
+
+  /* ===== 5. NORMALIZATION GOVERNANCE ===== */
+  --norm-type: <enum: rmsnorm|layernorm|groupnorm|none>;
+  --norm-eps: <float:1e-6|1e-5>;
+  --norm-affine: <boolean>;
+  --pre-norm: <boolean>;
+
+  /* ===== 6. ACTIVATION GOVERNANCE ===== */
+  --activation-type: <enum: gelu|silu|swiglu|relu|sigmoid|tanh>;
+  --activation-approx: <enum: tanh|none>;
+  --activation-gate: <boolean>;
+
+  /* ===== 7. FEED-FORWARD GOVERNANCE ===== */
+  --ffn-expansion: <float:2-8>;
+  --ffn-activation: <enum: silu|gelu|relu>;
+  --ffn-bias: <boolean>;
+  --ffn-dropout: <float:0-0.5>;
+  --ffn-glu-variant: <enum: none|swiglu|geglu|ffn>;
+
+  /* ===== 8. MIXTURE OF EXPERTS GOVERNANCE ===== */
+  --moe-enabled: <boolean>;
+  --moe-num-experts: <power-of-two:2-256>;
+  --moe-top-k: <integer:1-8>;
+  --moe-capacity-factor: <float:1.0-2.0>;
+  --moe-router-type: <enum: topk|sinkhorn|balanced>;
+  --moe-aux-loss-coef: <float:0-0.1>;
+  --moe-z-loss-coef: <float:0-0.1>;
+  --moe-expert-parallel: <enum: none|tp|ep>;
+
+  /* ===== 9. CACHE GOVERNANCE ===== */
+  --cache-type: <enum: radix|paged|continuous|none>;
+  --cache-precision: <enum: int8|fp16>;
+  --cache-page-size: <multiple-of-16:16|32|64>;
+  --cache-max-pages: <integer:1000-1000000>;
+  --cache-reuse: <boolean>;
+  --cache-prefix-caching: <boolean>;
+
+  /* ===== 10. BATCH GOVERNANCE ===== */
+  --max-batch-size: <power-of-two:1-256>;
+  --max-total-tokens: <integer:1024-524288>;
+  --scheduling-policy: <enum: static|continuous|dynamic>;
+  --prefill-chunk-size: <multiple-of-64:256-8192>;
+
+  /* ===== 11. MEMORY GOVERNANCE ===== */
+  --memory-limit: <string: "XGB"|"XMB">;
+  --swap-space: <string: "XGB"|"XMB">;
+  --offload-strategy: <enum: none|cpu|disk>;
+  --kv-cache-limit: <string: "XGB"|"XMB">;
+
+  /* ===== 12. KERNEL GOVERNANCE ===== */
+  --kernel-matmul: <enum: wmma|mma|simd|naive>;
+  --kernel-softmax: <enum: online|safe|naive>;
+  --kernel-layernorm: <enum: fused|elementwise>;
+  --kernel-attention: <enum: flash|xformers|vanilla>;
+  --kernel-sampling: <enum: warpsampling|sequential>;
+  --kernel-moe: <enum: grouped|sequential>;
+
+  /* ===== 13. SAMPLING GOVERNANCE ===== */
+  --sampling-default: <enum: greedy|topk|topp|typical>;
+  --sampling-temperature: <float:0-2>;
+  --sampling-top-k: <integer:0-100>;
+  --sampling-top-p: <float:0-1>;
+  --sampling-min-p: <float:0-0.5>;
+  --sampling-typical-p: <float:0-1>;
+  --sampling-repetition-penalty: <float:1-2>;
+  --sampling-frequency-penalty: <float:0-2>;
+  --sampling-presence-penalty: <float:0-2>;
+
+  /* ===== 14. PROFILING GOVERNANCE ===== */
+  --profile-enabled: <boolean>;
+  --profile-level: <enum: off|basic|detailed|kernel>;
+  --profile-output: <enum: console|trace|perfetto>;
+  --trace-flops: <boolean>;
+  --trace-memory: <boolean>;
+  --trace-latency: <boolean>;
+
+  /* ===== 15. BRIDGE GOVERNANCE ===== */
+  --bridge-protocol: <enum: webgpu|wasm|cuda|metal>;
+  --bridge-version: <semver>;
+  --bridge-schema: <enum: json-rpc|flatbuffers>;
+  --bridge-timeout-ms: <integer:100-30000>;
+
+  /* ===== 16. REPLAY GOVERNANCE ===== */
+  --replay-enabled: <boolean>;
+  --replay-verify: <boolean>;
+  --replay-save-traces: <boolean>;
+  --replay-hash-inputs: <boolean>;
+  --replay-hash-outputs: <boolean>;
+
+  /* ===== 17. MICRONAUT ROUTER DEFINITIONS ===== */
+  --micronaut-attention-dispatch: <string>;
+  --micronaut-attention-bridge: <enum: webgpu:compute:shader|wasm:function>;
+  --micronaut-ffn-dispatch: <string>;
+  --micronaut-ffn-bridge: <enum>;
+  --micronaut-norm-dispatch: <string>;
+  --micronaut-norm-bridge: <enum>;
+  --micronaut-sampling-dispatch: <string>;
+  --micronaut-sampling-bridge: <enum>;
+  --micronaut-moe-dispatch: <string>;
+  --micronaut-moe-bridge: <enum>;
+
+  /* ===== 18. RUNTIME BINDINGS ===== */
+  --binding-weight-format: <enum: uint4|uint8|float16>;
+  --binding-weight-layout: <enum: linear|blocked|tiled>;
+  --binding-weight-transform: <enum: none|gptq|awq>;
+  --binding-kv-format: <enum: int8|float16>;
+  --binding-kv-layout: <enum: paged|linear|radix>;
+  --binding-input-format: <enum: int32|int64>;
+  --binding-output-format: <enum: float16|float32|int32>;
+
+  /* ===== 19. WORKGROUP GOVERNANCE ===== */
+  --workgroup-size-x: <multiple-of-32:32|64|128|256|512>;
+  --workgroup-size-y: <integer:1|2|4|8>;
+  --workgroup-size-z: <integer:1>;
+  --workgroup-shared-memory: <integer:0-65536>;
+
+  /* ===== 20. CONTRACT HASH ===== */
+  --config-hash: <hex-string>;
+}
