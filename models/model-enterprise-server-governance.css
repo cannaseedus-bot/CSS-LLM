@@ -1,0 +1,54 @@
+/*!
+ * CSS-LLM Enterprise Governance Profile v1.0
+ * Server-required profile for managed multi-tenant inference.
+ */
+
+:root {
+  --enterprise-mode: true;
+  --requires-server: true;
+  --standalone-browser-allowed: false;
+  --min-control-plane-version: "1.2.0";
+
+  --control-plane-protocol: "mtls-grpc";
+  --control-plane-endpoint: "grpcs://inference.control.css-llm.internal:7443";
+  --control-plane-timeout-ms: 8000;
+  --control-plane-auth: "mTLS";
+  --control-plane-tenant-id: "tenant-prod-eu";
+
+  --registry-provider: "s3";
+  --registry-uri: "s3://css-llm-enterprise/models";
+  --registry-model-id: "css-llm-34b-instruct-enterprise";
+  --registry-model-revision: "2026.02.01";
+  --registry-signature-required: true;
+
+  --inference-topology: "tensor-parallel";
+  --tensor-parallel-size: 8;
+  --pipeline-parallel-size: 2;
+  --expert-parallel-size: 1;
+  --router-policy: "compliance-zone";
+  --router-region: "eu-central-1";
+
+  --encryption-in-transit: "mtls";
+  --encryption-at-rest: "hsm-backed";
+  --audit-logging: true;
+  --pii-redaction: true;
+  --data-residency: "eu";
+
+  --kv-cache-backend: "redis";
+  --kv-cache-replication: "sync";
+  --kv-cache-ttl-seconds: 900;
+  --kv-cache-prefix-sharing: true;
+
+  --slo-p50-ms: 120;
+  --slo-p95-ms: 400;
+  --slo-p99-ms: 900;
+  --max-concurrent-requests: 20000;
+  --admission-policy: "priority-queue";
+
+  --trace-exporter: "otlp";
+  --metrics-exporter: "prometheus";
+  --log-format: "json";
+  --replay-trace-sampling: 0.1;
+
+  --enterprise-contract-hash: "f66e2afe0feab4c4cf370d0db11fcb9a4a75f1f387f8d778a08efb9a4f4d2f9f";
+}
