@@ -1,0 +1,41 @@
+/*! CSS-LLM Model Zoo */
+
+.model-llama3-8b {
+  --model-name: "Llama-3-8B";
+  --model-family: "meta-llama/Meta-Llama-3-8B";
+  --hidden-dim: 4096;
+  --intermediate-dim: 14336;
+  --num-layers: 32;
+  --num-attention-heads: 32;
+  --num-kv-heads: 8;
+  --head-dim: 128;
+  --vocab-size: 128256;
+  --max-seq-len: 8192;
+  --weight-precision: "int4";
+  --weight-base-url: "https://models.css-llm.dev/llama3-8b/";
+}
+
+.model-mistral-7b {
+  --model-name: "Mistral-7B";
+  --model-family: "mistralai/Mistral-7B-v0.3";
+  --hidden-dim: 4096;
+  --intermediate-dim: 14336;
+  --num-layers: 32;
+  --num-attention-heads: 32;
+  --num-kv-heads: 8;
+  --head-dim: 128;
+  --vocab-size: 32000;
+  --max-seq-len: 8192;
+  --weight-base-url: "https://models.css-llm.dev/mistral-7b/";
+}
+
+.model-phi3-mini {
+  --model-name: "Phi-3-mini-4k";
+  --model-family: "microsoft/Phi-3-mini-4k-instruct";
+  --hidden-dim: 3072;
+  --num-layers: 32;
+  --num-attention-heads: 32;
+  --head-dim: 96;
+  --vocab-size: 32064;
+  --weight-base-url: "https://models.css-llm.dev/phi3-mini/";
+}
