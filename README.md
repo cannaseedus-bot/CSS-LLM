@@ -75,3 +75,18 @@ python3 -m http.server 8080
 ```
 
 Open `http://localhost:8080/demo/index.html`.
+
+
+## Sync branch with `main` (conflict workflow)
+
+If GitHub says your PR branch has conflicts, use:
+
+```bash
+tools/sync-branch-with-main.sh origin main
+```
+
+Then push:
+
+```bash
+git push --force-with-lease origin $(git branch --show-current)
+```
